@@ -26,13 +26,20 @@ const getAllCategories = async (req, res) => {
 
 const getCategoryByID = async (req, res) => {
 
-    try {
+    const { _id } = req.query
 
-    } catch (error) {
+    try {
+        await connect(process.env.MONGO_URL)
+        const category = await Category.findOne({ _id })
+        res.json({ category })
+    }
+
+
+
+    catch (error) {
         res.status(400).json({
             message: error.message
         })
-
     }
 }
 
@@ -78,8 +85,24 @@ const createCategory = async (req, res) => {
 }
 
 const updateCategory = async (req, res) => {
+    const { _id, CategoryName, CategoryImage } = req.body
+
+    const filter = { _id };
+    const update = { CategoryName, CategoryImage };
 
     try {
+        await connect(process.env.MONGO_URL)
+
+        await Category.findOneAndUpdate(filter, update, {
+            new: true
+        });
+        const category = await Category.find()
+
+        res.json({
+            message: "Successfully Updated",
+            category
+        })
+
 
     } catch (error) {
         res.status(400).json({
@@ -91,13 +114,25 @@ const updateCategory = async (req, res) => {
 
 const deleteCategory = async (req, res) => {
 
-    try {
+    const { _id } = req.body
 
-    } catch (error) {
+    try {
+        await connect(process.env.MONGO_URL)
+        await Category.deleteOne({ _id })
+        const category = await Category.find()
+
+        res.status(200).json({
+            message: "Deleted Successfully",
+            category
+        })
+    }
+
+
+
+    catch (error) {
         res.status(400).json({
             message: error.message
         })
-
     }
 }
 
