@@ -27,12 +27,10 @@ const ProductSchema = new Schema(
       } ,
       ProductBrand:{
         type: String,
-        unique: true,
         required: true
       } ,
       ProductCategory:{
         type: String,
-        unique: true,
         required: true
       } ,
       ProductThumbnail:{
