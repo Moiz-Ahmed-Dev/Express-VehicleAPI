@@ -137,8 +137,27 @@ const deleteProduct = async (req, res) => {
     }
 }
 
+const getProductByCategory = async (req, res) => {
 
-module.exports = {getAllProducts, getProductByID, createProduct, updateProduct, deleteProduct}
+    const { ProductCategory } = req.query
+
+    try {
+        await connect(process.env.MONGO_URL)
+        const product = await Product.find({ ProductCategory })
+        res.json({ product })
+    }
+
+
+
+    catch (error) {
+        res.status(400).json({
+            message: error.message
+        })
+    }
+}
+
+
+module.exports = {getAllProducts, getProductByID, createProduct, updateProduct, deleteProduct, getProductByCategory}
 
 
  
