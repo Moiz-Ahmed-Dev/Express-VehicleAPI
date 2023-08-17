@@ -22,10 +22,6 @@ const OrdersSchema = new Schema({
         type: String,
         required: true,
     },
-    order: {
-        type: Array,
-        required: true,
-    },
     order_at: {
         type: Date,
         default: Date.now

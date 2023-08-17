@@ -5,9 +5,9 @@ const { connect } = require("mongoose")
 require('dotenv').config()
 
 const placeOrder = async (req, res) => {
-    const { customerName, customerEmail, customerId, customerContact, customerAddress, order } = req.body
+    const { customerName, customerEmail, customerId, customerContact, customerAddress } = req.body
 
-    if (!customerName || !customerEmail || !customerId || !customerContact || !customerAddress || !order) {
+    if (!customerName || !customerEmail || !customerId || !customerContact || !customerAddress) {
         res.status(403).json({
             message: "Missing Required"
         })
@@ -36,7 +36,7 @@ const placeOrder = async (req, res) => {
 
         try {
             await connect(process.env.MONGO_URL)
-            const orders = await Orders.create({ customerName, customerEmail, customerId, customerContact, customerAddress, order })
+            const orders = await Orders.create({ customerName, customerEmail, customerId, customerContact, customerAddress })
 
             await transporter.sendMail({
                 from: process.env.NODEMAILER_EMAIL,
