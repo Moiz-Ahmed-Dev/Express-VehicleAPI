@@ -28,7 +28,7 @@ const placeOrder = async (req, res) => {
         var mailGenerator = new Mailgen({
             theme: 'default',
             product: {
-                name: 'BanoQabil',
+                name: 'ShoeSavvy.com',
                 link: 'https://mailgen.js/'
             }
         });
